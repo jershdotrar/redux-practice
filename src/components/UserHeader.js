@@ -4,16 +4,29 @@ import { fetchUser } from '../actions';
 
 class UserHeader extends Component {
   componentDidMount() {
+    // call action with the userId from the postsReducer in PostList
     this.props.fetchUser(this.props.userId);
   }
 
   render() {
+    const { user } = this.props;
+    // there'll be no list of users on the very first render, so let's take care of that right quick
+    if(!user) {
+      return null;
+    }
+
     return (
-      <div>
-        User Header
+      <div className="header">
+        UserHeader
       </div>
-    )
+    );
   }
 }
 
-export default connect(null, { fetchUser })(UserHeader);
+//mapStateToProps has a second optional arg, which is a reference to this component's own props
+const mapStateToProps = (state, ownProps) => {
+  return { user: state.users.find(user => user.id === ownProps.userId) };
+}
+
+
+export default connect(mapStateToProps, { fetchUser })(UserHeader);
