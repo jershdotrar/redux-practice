@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchUser } from '../actions';
 
 class UserHeader extends Component {
-  componentDidMount() {
-    // call action with the userId from the postsReducer in PostList
-    this.props.fetchUser(this.props.userId);
-  }
+  // componentDidMount() {
+  //   // call action with the userId from the postsReducer in PostList
+  //   this.props.fetchUser(this.props.userId);
+  // }
 
   render() {
     const { user } = this.props;
@@ -17,7 +16,7 @@ class UserHeader extends Component {
 
     return (
       <div className="header">
-        UserHeader
+        {user.name}
       </div>
     );
   }
@@ -29,4 +28,4 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 
-export default connect(mapStateToProps, { fetchUser })(UserHeader);
+export default connect(mapStateToProps)(UserHeader);
